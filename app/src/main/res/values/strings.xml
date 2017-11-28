@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">TimeTableDesign2</string>
+    <string name="title_home">Home</string>
+    <string name="title_weeks">Неделя</string>
+    <string name="title_days">Дни</string>
+    <string name="title_bells">Звонки</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_tabs_days">TabsDaysActivity</string>
+</resources>
