@@ -8,9 +8,6 @@ import android.support.v4.view.ViewCompat;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Oleg on 25.11.2017.
- */
 
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 

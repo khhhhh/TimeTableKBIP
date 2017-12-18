@@ -8,11 +8,6 @@
         app:showAsAction="ifRoom"/>
 
     <item
-        android:id="@+id/navigation_weeks"
-        android:icon="@drawable/ic_view_week_black_24dp"
-        android:title="@string/title_weeks"
-        app:showAsAction="ifRoom"/>
-    <item
         android:id="@+id/navigation_ring"
         android:icon="@drawable/ic_notifications_black_24dp"
         android:title="@string/title_bells"

@@ -1,19 +1,15 @@
 package layout;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import by.kbp.timetabledesign2.R;
-
+import java.util.Calendar;
+import java.util.Date;
 
 
 public class DaysFragment extends Fragment {
@@ -36,6 +32,15 @@ public class DaysFragment extends Fragment {
         adapter.addFragment(new DayFragment());
         viewPager.setAdapter(adapter);
 
+        Date date = new Date();
+
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+        tabLayout.setScrollPosition(dayOfWeek-2,0f,true);
+        viewPager.setCurrentItem(dayOfWeek-2);
+
         tabLayout.setupWithViewPager(viewPager);
     }
+
 }
