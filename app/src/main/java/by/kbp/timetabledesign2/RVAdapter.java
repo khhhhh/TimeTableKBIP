@@ -37,14 +37,14 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.LectureViewHolder>
 
     @Override
     public LectureViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.activity_main, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cardfragment, viewGroup, false);
         LectureViewHolder lvh = new LectureViewHolder(v);
         return lvh;
     }
 
 
 
-    List<Lecture> lectures;
+    private List<Lecture> lectures;
     public RVAdapter(List<Lecture> lectures){
         this.lectures = lectures;
     }
