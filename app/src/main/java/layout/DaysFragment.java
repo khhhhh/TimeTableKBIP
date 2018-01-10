@@ -155,6 +155,8 @@ public class DaysFragment extends Fragment {
             if (isAddedSubj.size() != 0) {
                 subj = isAddedSubj.select(".subject").get(isAddedSubj.size() / 2);
                 teacher = isAddedSubj.select(".teacher").get(isAddedSubj.size() / 2);
+                if(teacher.text() == "")
+                teacher = isAddedSubj.select(".teacher").get(isAddedSubj.size());
                 place = isAddedSubj.select(".place").get(isAddedSubj.size() / 2);
                 group = isAddedSubj.select(".group").get(isAddedSubj.size() / 2);
 
