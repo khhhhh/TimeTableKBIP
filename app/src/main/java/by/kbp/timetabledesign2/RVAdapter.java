@@ -25,6 +25,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.LectureViewHolder>
         lectureViewHolder.teacherName.setText(lectures.get(i).teacher);
         lectureViewHolder.placeName.setText(lectures.get(i).place);
         lectureViewHolder.groupName.setText(lectures.get(i).group);
+        lectureViewHolder.number.setText(lectures.get(i).number);
 
     }
 
@@ -56,7 +57,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.LectureViewHolder>
         TextView teacherName;
         TextView placeName;
         TextView groupName;
-
+        TextView number;
 
         LectureViewHolder(View itemView) {
             super(itemView);
@@ -65,6 +66,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.LectureViewHolder>
             teacherName = (TextView)itemView.findViewById(R.id.teacher_name);
             placeName = (TextView)itemView.findViewById(R.id.place_name);
             groupName = (TextView)itemView.findViewById(R.id.group_name);
+            number = (TextView)itemView.findViewById(R.id.number);
         }
 
     }

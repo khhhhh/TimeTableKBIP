@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/TimeTableDesignAlpha.iml" filepath="$PROJECT_DIR$/TimeTableDesignAlpha.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TimeTableDesign2.iml" filepath="$PROJECT_DIR$/TimeTableDesign2.iml" />
+      <module fileurl="file://D:\project\TimeTableDesign2\TimeTableDesignAlpha.iml" filepath="D:\project\TimeTableDesign2\TimeTableDesignAlpha.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

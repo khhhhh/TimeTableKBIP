@@ -13,21 +13,26 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:padding="10dp">
+
     <TextView
+        android:id="@+id/number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="10dp" />
+
+    <TextView
         android:id="@+id/subject_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:textSize="25sp"
-        android:padding="10dp"
-        />
+        android:layout_toRightOf="@id/number"
+        android:padding="10dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/teacher_name"
         android:layout_below="@id/subject_name"
-        android:textSize="17sp"
         android:padding="10dp"
         />
 
@@ -37,7 +42,6 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:id="@+id/group_name"
-        android:textSize="18sp"
         android:padding="10dp"
         />
 
@@ -47,7 +51,6 @@
         android:id="@+id/place_name"
         android:layout_below="@id/subject_name"
         android:layout_alignParentEnd="true"
-        android:textSize="18sp"
         android:padding="10dp"
         />
 

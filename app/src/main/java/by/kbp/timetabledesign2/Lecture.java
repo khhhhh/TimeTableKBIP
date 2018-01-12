@@ -11,11 +11,13 @@ public class  Lecture implements Parcelable {
     String teacher;
     String place;
     String group;
-    public Lecture(String subject, String teacher, String place, String group) {
+    String number;
+    public Lecture(String subject, String teacher, String place, String group, String number) {
         this.subject = subject;
         this.teacher = teacher;
         this.place = place;
         this.group = group;
+        this.number = number;
     }
 
     @Override
@@ -30,6 +32,7 @@ public class  Lecture implements Parcelable {
         teacher = data[1];
         place = data[2];
         group = data[3];
+        number = data[4];
     }
 
     @Override
@@ -39,6 +42,7 @@ public class  Lecture implements Parcelable {
             list.add(teacher);
             list.add(place);
             list.add(group);
+            list.add(number);
             dest.writeStringList(list);
     }
 
