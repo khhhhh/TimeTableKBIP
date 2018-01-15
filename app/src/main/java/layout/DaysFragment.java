@@ -1,12 +1,13 @@
 package layout;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
@@ -46,10 +47,15 @@ public class DaysFragment extends Fragment {
         setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
 
+        connectToSite();
 
+    }
+
+
+    void connectToSite(){
         HtmlData = null;
         NewThread AsyncParse = new NewThread(); // Объект асинхронного потока
-        AsyncParse.execute(); // Запуск асинхронного потока (Работа с сетью с версии android 3.0 работает только в отдельном потоке при попытке взаимодействовать с сетью в UI потоке - error)
+        AsyncParse.execute(receiveData()); // Запуск асинхронного потока (Работа с сетью с версии android 3.0 работает только в отдельном потоке при попытке взаимодействовать с сетью в UI потоке - error)
         try {
             HtmlData = AsyncParse.get(); // Получаю возвращаемые данные из асинхронного потока (Для этого - запускается поток, затем используется метод .get)
         } catch (InterruptedException e) {
@@ -57,12 +63,9 @@ public class DaysFragment extends Fragment {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-
-
     }
 
-
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle   savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_days, container, false);
 
         //Добавляем поиск
@@ -75,19 +78,25 @@ public class DaysFragment extends Fragment {
 
         return view;
     }
-
     //Настраиваем поиск
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_item, menu);
-        MenuItem item = menu.findItem(R.id.action_search);
+        final MenuItem item = menu.findItem(R.id.action_search);
+
         final SearchView searchView = (SearchView) item.getActionView();
+
         searchView.setOnQueryTextListener(
                 new SearchView.OnQueryTextListener(){
 
                     @Override
                     public boolean onQueryTextSubmit(String query) {
-                        searchView.onActionViewCollapsed();
+                        saveData(searchView.getQuery().toString());
+                        connectToSite();
+                        ViewPager viewPager = (ViewPager) getActivity().findViewById(R.id.frame);
+                        setupViewPager(viewPager,
+                                (TabLayout) getActivity().findViewById(R.id.tabs));
+                        item.collapseActionView();
                         return false;
                     }
 
@@ -121,14 +130,14 @@ public class DaysFragment extends Fragment {
     }
 
 
-    public class NewThread extends AsyncTask<Void, Void, Document> //<Входные, Промежуточные, Возвращаемые>Данные (Для работы в асинхронном потоке)
+    public class NewThread extends AsyncTask<String, Void, Document> //<Входные, Промежуточные, Возвращаемые>Данные (Для работы в асинхронном потоке)
     {
         @Override
-        protected Document doInBackground(Void... args)
+        protected Document doInBackground(String... args)
         {
             Document doc = null;
             try {
-                doc = Jsoup.connect("https://kbp.by/rasp/timetable/view_beta_tbp/?cat=group&id=133").get();
+                doc = Jsoup.connect("https://kbp.by/rasp/timetable/view_beta_tbp/?q="+args[0]).get();
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
@@ -138,14 +147,23 @@ public class DaysFragment extends Fragment {
     }
 
     private ArrayList<Lecture> SetData(Document doc, int Day) {
-        // TODO
-        //https://kbp.by/rasp/timetable/view_beta_tbp/?q=           <---[GET]Поиск
 
         ArrayList<Lecture> lectures = new ArrayList<>();
-        Element group = null;
-        Element[] places = null;
-        Element[] teachers = null;
-        Element subj = null;
+
+        if(doc == null) {
+            Snackbar.make(getActivity().findViewById(R.id.content), "Отсутствует подключение к интернету", Snackbar.LENGTH_SHORT).show();
+            return lectures;
+        }
+
+        if(doc.select("table").isEmpty()) {
+            Snackbar.make(getActivity().findViewById(R.id.content), "Ничего не найдено!", Snackbar.LENGTH_SHORT).show();
+            return lectures;
+        }
+
+        Element group;
+        Element[] places;
+        Element[] teachers;
+        Element subj;
         int number = 1;
 
         Element table = doc.select("table").get(0); //Выбор левой таблицы(0) /  Правой (1)
@@ -178,7 +196,8 @@ public class DaysFragment extends Fragment {
                             group.text(),
                             String.valueOf(number)));
                 else if(isAddedSubj.size() == 1)
-                    lectures.add(new Lecture(subj.text(), teachers[0].text(), places[0].text(), group.text(),String.valueOf(number)));
+                    lectures.add(new Lecture(subj.text(), teachers[0].text(),
+                            places[0].text(), group.text(),String.valueOf(number)));
             }else {
 
                 lectures.add(new Lecture("Пары нет", " ", " ", " ",  String.valueOf(number)));
@@ -189,4 +208,15 @@ public class DaysFragment extends Fragment {
     }
 
 
+    void saveData(String search){
+        SharedPreferences preferences = getActivity().getSharedPreferences("PREFS",0);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("SEARCH", search);
+        editor.apply();
+    }
+
+    String receiveData() {
+        SharedPreferences preferences = getActivity().getSharedPreferences("PREFS",0);
+        return preferences.getString("SEARCH","Т-617");
+    }
 }
