@@ -172,6 +172,8 @@ public class DaysFragment extends Fragment{
 
     private boolean setRelevanceInfo(Document doc, int Day){
 
+        if(doc == null)
+            return false;
         Element table = doc.select("table").get(0); //Выбор левой таблицы(0) /  Правой (1)
         Elements rows = table.select("tr"); //9-ь строк (0-день недели(th); 1-замены(th); 2,3..8 - пары(td))
         //
