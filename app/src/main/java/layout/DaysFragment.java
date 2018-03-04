@@ -17,6 +17,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Spinner;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -43,6 +45,8 @@ public class DaysFragment extends Fragment{
     private CustomSwipe swipeContainer;
     private ViewPager viewPager;
     private TabLayout tabLayout;
+    private Spinner spinner;
+    private int spinnerChoice;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,8 +79,21 @@ public class DaysFragment extends Fragment{
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowTitleEnabled(false);
         tabLayout = (TabLayout) view.findViewById(R.id.tabs);
         viewPager = (ViewPager) view.findViewById(R.id.frame);
+        spinner = (Spinner) view.findViewById(R.id.spinner);
+        setupSpinner(HtmlData);
         setupViewPager(viewPager, tabLayout);
 
+        spinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener(){
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                setupViewPager(spinner.getSelectedItemPosition() == spinnerChoice? 0 : 1);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
         final CustomSwipe swipeContainer = (CustomSwipe) view.findViewById(R.id.swipe_refresh);
         swipeContainer.setColorSchemeColors(Color.parseColor("#00796b"));
         swipeContainer.setOnRefreshListener(new CustomSwipe.OnRefreshListener() {
@@ -84,7 +101,8 @@ public class DaysFragment extends Fragment{
             public void onRefresh() {
                 swipeContainer.setRefreshing(true);
                 connectToSite();
-                setupViewPager();
+                setupSpinner(HtmlData);
+                setupViewPager(0);
                 swipeContainer.setRefreshing(false);
             }
         });
@@ -96,10 +114,7 @@ public class DaysFragment extends Fragment{
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_item, menu);
         final MenuItem item = menu.findItem(R.id.action_search);
-
         final SearchView searchView = (SearchView) item.getActionView();
-
-
         searchView.setOnQueryTextListener(
                 new SearchView.OnQueryTextListener(){
 
@@ -107,11 +122,11 @@ public class DaysFragment extends Fragment{
                     public boolean onQueryTextSubmit(String query) {
                         saveData(searchView.getQuery().toString());
                         connectToSite();
-                        setupViewPager();
+                        setupSpinner(HtmlData);
+                        setupViewPager(0);
                          item.collapseActionView();
                         return false;
                     }
-
                     @Override
                     public boolean onQueryTextChange(String newText) {
                         return false;
@@ -122,14 +137,10 @@ public class DaysFragment extends Fragment{
     }
 
 
-    public void setupViewPager(){
-        /*
-        setupViewPager((ViewPager) getActivity().findViewById(R.id.frame),
-                (TabLayout) getActivity().findViewById(R.id.tabs));
-                */
+    public void setupViewPager(int week){
         SectionsPagerAdapter adapter = new SectionsPagerAdapter(getChildFragmentManager());
         for(int i = 1; i < 7; i++)
-            adapter.addFragment(DayFragment.newInstance(SetData(HtmlData, i), setRelevanceInfo(HtmlData, i)));
+            adapter.addFragment(DayFragment.newInstance(SetData(HtmlData, i, week), setRelevanceInfo(HtmlData, i, week)));
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(dayOfWeek-2);
         tabLayout.setupWithViewPager(viewPager);
@@ -137,10 +148,11 @@ public class DaysFragment extends Fragment{
     }
 
     private int dayOfWeek;
+
     public void setupViewPager(ViewPager viewPager, TabLayout tabLayout){
         SectionsPagerAdapter adapter = new SectionsPagerAdapter(getChildFragmentManager());
         for(int i = 1; i < 7; i++)
-            adapter.addFragment(DayFragment.newInstance(SetData(HtmlData, i), setRelevanceInfo(HtmlData, i)));
+            adapter.addFragment(DayFragment.newInstance(SetData(HtmlData, i, 0), setRelevanceInfo(HtmlData, i, 0)));
         viewPager.setAdapter(adapter);
 
         Date date = new Date();
@@ -170,11 +182,12 @@ public class DaysFragment extends Fragment{
 
     }
 
-    private boolean setRelevanceInfo(Document doc, int Day){
+    private boolean setRelevanceInfo(Document doc, int Day, int Week){
 
-        if(doc == null)
+        if(doc == null || doc.select("table").isEmpty())
             return false;
-        Element table = doc.select("table").get(0); //Выбор левой таблицы(0) /  Правой (1)
+
+        Element table = doc.select("table").get(Week); //Выбор левой таблицы(0) /  Правой (1)
         Elements rows = table.select("tr"); //9-ь строк (0-день недели(th); 1-замены(th); 2,3..8 - пары(td))
         //
         Element rowZamena = rows.get(1);
@@ -183,7 +196,22 @@ public class DaysFragment extends Fragment{
         return !th.text().equals("");
     }
 
-    private ArrayList<Lecture> SetData(Document doc, int Day) {
+
+    private void setupSpinner(Document doc){
+        if(doc == null || doc.select("table").isEmpty())
+            return;
+        Element today = doc.selectFirst("p.today");
+        if(today.text().equals("первая неделя")) {
+            spinner.setSelection(0);
+            spinnerChoice = 0;
+        }
+        else{
+            spinner.setSelection(1);
+            spinnerChoice = 1;
+        }
+    }
+
+    private ArrayList<Lecture> SetData(Document doc, int Day, int Week) {
 
         ArrayList<Lecture> lectures = new ArrayList<>();
 
@@ -204,14 +232,10 @@ public class DaysFragment extends Fragment{
         Element subj;
         int number = 1;
 
-        Element table = doc.select("table").get(0); //Выбор левой таблицы(0) /  Правой (1)
+        Element table = doc.select("table").get(Week); //Выбор левой таблицы(0) /  Правой (1)
         Elements rows = table.select("tr"); //9-ь строк (0-день недели(th); 1-замены(th); 2,3..8 - пары(td))
-        //
-        Element rowZamena = rows.get(1);
-        Elements Ths = rowZamena.select("th");
-        Element th = Ths.get(Day);
 
-        boolean currentInfo = th.text().equals("");
+
 
         for (int RowInd = 2; RowInd < 9; RowInd = RowInd + 1, number++) {
             Element row = rows.get(RowInd); //  получить все ячейки по горизонтали x строки в элемент
