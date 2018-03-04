@@ -226,7 +226,7 @@ public class DaysFragment extends Fragment{
             return lectures;
         }
 
-        Element group;
+        Element[] group;
         Element[] places;
         Element[] teachers;
         Element subj;
@@ -251,22 +251,23 @@ public class DaysFragment extends Fragment{
             if (isAddedSubj.size() > 0) {
                 places = new Element[isAddedSubj.size()];
                 teachers = new Element[isAddedSubj.size()];
+                group = new Element[isAddedSubj.size()];
                 for (int i = 0; i < isAddedSubj.size(); i++) {
 
                     teachers[i] = isAddedSubj.select(".teacher").get(i == 1 ? 2 : i);
                     places[i] = isAddedSubj.select(".place").get(i);
+                    group[i] = isAddedSubj.select(".group").get(i);
                 }
                 subj = isAddedSubj.select(".subject").get(isAddedSubj.size() - 1);
-                group = isAddedSubj.select(".group").get(isAddedSubj.size() - 1);
                 if (isAddedSubj.size() >= 2)
                     lectures.add(new Lecture(subj.text(),
                             teachers[0].text() + "/" + teachers[1].text(),
                             places[0].text()+ "/" + places[1].text(),
-                            group.text(),
+                            group[0].text()+ "/" + group[1].text(),
                             String.valueOf(number)));
                 else if(isAddedSubj.size() == 1)
                     lectures.add(new Lecture(subj.text(), teachers[0].text(),
-                            places[0].text(), group.text(),String.valueOf(number)));
+                            places[0].text(), group[0].text(),String.valueOf(number)));
             }else {
 
                 lectures.add(new Lecture("Пары нет", " ", " ", " ",  String.valueOf(number)));
