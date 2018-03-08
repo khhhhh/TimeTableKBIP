@@ -12,7 +12,7 @@ import java.util.List;
 
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.LectureViewHolder>{
 
-
+    private List<Lecture> lectures;
 
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
@@ -26,10 +26,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.LectureViewHolder>
         lectureViewHolder.placeName.setText(lectures.get(i).place);
         lectureViewHolder.groupName.setText(lectures.get(i).group);
         lectureViewHolder.number.setText(lectures.get(i).number);
-
     }
-
-
 
     @Override
     public int getItemCount() {
@@ -44,8 +41,6 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.LectureViewHolder>
     }
 
 
-
-    private List<Lecture> lectures;
     public RVAdapter(List<Lecture> lectures){
         this.lectures = lectures;
     }

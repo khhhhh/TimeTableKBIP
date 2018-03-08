@@ -16,12 +16,9 @@ import layout.DaysFragment;
 import layout.RingsFragment;
 
 public class MainActivity extends AppCompatActivity {
-
-    MenuItem menuItem;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
 
         //Настройка BottomBar
@@ -33,18 +30,20 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.content,new DaysFragment()).commit();
 
-
-
-        //
+        //Проверка на наличие интернета
         if(!InternetConnected()){
             Snackbar.make(findViewById(R.id.content), "Отсутствует подключение к интернету", Snackbar.LENGTH_SHORT).show();
         }
-
-
-       // SwipeRefresh();
-
-
     }
+
+    //Проверка интернета
+    private boolean InternetConnected(){
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        return networkInfo != null && networkInfo.isConnected();
+    }
+
+    //Настройка нижнего бара
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -65,11 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
     };
 
-    private boolean InternetConnected(){
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        return networkInfo != null && networkInfo.isConnected();
-    }
+
 
 
 

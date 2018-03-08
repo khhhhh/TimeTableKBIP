@@ -6,9 +6,6 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.ViewConfiguration;
 
-/**
- * Created by Oleg on 03.03.2018.
- */
 public class CustomSwipe extends SwipeRefreshLayout {
 
     private int mTouchSlop;
