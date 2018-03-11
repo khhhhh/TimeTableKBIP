@@ -1,34 +1,63 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="by.kbp.timetabledesign2.MainActivity">
+    tools:context=".MainActivity">
 
 
-    <android.support.design.widget.CoordinatorLayout
-        android:id="@+id/content"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="top"
-        android:layout_weight="1">
 
-    </android.support.design.widget.CoordinatorLayout>
 
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/navigation"
+
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="@color/colorPrimary"
-        app:itemIconTint="@drawable/bottom_nav_bar_selector"
-        app:itemTextColor="@drawable/bottom_nav_bar_selector"
-        app:menu="@menu/navigation"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="132dp" />
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:paddingTop="@dimen/appbar_padding_top">
 
-</LinearLayout>
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                android:entries="@array/spinnerItems"
+                />
+
+        </android.support.v7.widget.Toolbar>
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            card_view:tabMode="scrollable" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <by.kbp.timetabledesign2.CustomSwipe
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/swipe_refresh"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+
+        >
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#e4e4e4"
+        />
+    </by.kbp.timetabledesign2.CustomSwipe>
+
+</android.support.design.widget.CoordinatorLayout>

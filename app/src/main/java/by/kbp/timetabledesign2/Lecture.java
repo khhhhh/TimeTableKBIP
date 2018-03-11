@@ -12,6 +12,7 @@ public class  Lecture implements Parcelable {
     String place;
     String group;
     String number;
+    public String Time;
 
 
     public Lecture(String subject, String teacher, String place, String group, String number) {

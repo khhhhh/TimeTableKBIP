@@ -1,137 +1,44 @@
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:paddingTop="@dimen/appbar_padding_top"
+        >
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </android.support.design.widget.AppBarLayout>
+
+
+<TableLayout
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="layout.RingsFragment">
+    tools:context="layout.RingsFragment"
+    android:layout_below="@id/appbar2"
+    >
 
-
-
-        <TableRow
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-            <TextView
-                android:layout_height="match_parent"
-                android:text="Понедельник \nВторник \nСреда \nЧетверг \nПятница "
-                />
-
-            <TableLayout
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <TableRow android:layout_weight="1">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:text="1 пара" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="8:30 - 10:00" />
-                </TableRow>
-
-                <TableRow android:layout_weight="1">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:text="2 пара" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="10:10 - 11:40" />
-                </TableRow>
-
-                <TableRow android:layout_weight="1">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:text="3 пара" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="12:20 - 13:50" />
-                </TableRow>
-
-                <TableRow android:layout_weight="1">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="4 пара"
-                        android:layout_weight="1" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="14:10 - 15:40" />
-                </TableRow>
-
-                <TableRow android:layout_weight="1">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:text="5 пара" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="15:50 - 17:20" />
-                </TableRow>
-
-                <TableRow android:layout_weight="1">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:text="6 пара" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="17:30 - 19:00" />
-                </TableRow>
-
-                <TableRow android:layout_weight="1">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:text="7 пара" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="19:10 - 20:30" />
-                </TableRow>
-            </TableLayout>
-        </TableRow>
-
-    <TableRow android:layout_height="match_parent"
-        android:layout_weight="1">
+    <TableRow android:layout_height="wrap_content">
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Суббота" />
+            android:layout_height="wrap_content"
+            android:text="Понедельник \nВторник \nСреда \nЧетверг \nПятница " />
 
         <TableLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1">
 
-            <TableRow android:layout_weight="1">
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -145,7 +52,10 @@
                     android:text="8:30 - 10:00" />
             </TableRow>
 
-            <TableRow android:layout_weight="1">
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -159,7 +69,145 @@
                     android:text="10:10 - 11:40" />
             </TableRow>
 
-            <TableRow android:layout_weight="1">
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="3 пара" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="12:20 - 13:50" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="4 пара" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="14:10 - 15:40" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="5 пара" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="15:50 - 17:20" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="6 пара" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="17:30 - 19:00" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="7 пара" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="19:10 - 20:30" />
+            </TableRow>
+        </TableLayout>
+    </TableRow>
+
+    <TableRow
+        android:layout_height="match_parent"
+        android:layout_weight="0">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Суббота" />
+
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="1 пара" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="8:30 - 10:00" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="2 пара" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="10:10 - 11:40" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -173,7 +221,10 @@
                     android:text="11:50 - 13:20" />
             </TableRow>
 
-            <TableRow android:layout_weight="1">
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -187,7 +238,10 @@
                     android:text="13:30 - 15:00" />
             </TableRow>
 
-            <TableRow android:layout_weight="1">
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -201,7 +255,10 @@
                     android:text="15:10 - 16:40" />
             </TableRow>
 
-            <TableRow android:layout_weight="1">
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -215,7 +272,10 @@
                     android:text="16:50 - 18:20" />
             </TableRow>
 
-            <TableRow android:layout_weight="1">
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -232,3 +292,5 @@
     </TableRow>
 
 </TableLayout>
+
+</RelativeLayout>
