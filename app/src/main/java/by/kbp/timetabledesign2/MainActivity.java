@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity{
         spinner = (Spinner) findViewById(R.id.spinner);
         swipeContainer = (CustomSwipe) findViewById(R.id.swipe_refresh);
 
+
         //Проверка на наличие интернета
         if(!InternetConnected()){
             Snackbar.make(viewPager, "Отсутствует подключение к интернету", Snackbar.LENGTH_LONG).show();
