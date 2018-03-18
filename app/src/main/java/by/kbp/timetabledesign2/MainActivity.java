@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity{
     private TabLayout tabLayout;
     private Spinner spinner;
     private SectionsPagerAdapter adapter;
+    private int weekVar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,7 +78,7 @@ public class MainActivity extends AppCompatActivity{
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                setupViewPager(spinner.getSelectedItemPosition());
+                setupViewPager(spinner.getSelectedItemPosition() == weekVar? 0 : 1);
             }
 
             @Override
@@ -96,7 +97,7 @@ public class MainActivity extends AppCompatActivity{
                         int i = spinner.getSelectedItemPosition();
                         setupSpinner(HtmlData);
                         if(spinner.getSelectedItemPosition() == i){
-                            setupViewPager(spinner.getSelectedItemPosition());
+                            setupViewPager(spinner.getSelectedItemPosition() == weekVar? 0 : 1);
                         }
                         swipeContainer.setRefreshing(false);
                     }
@@ -143,7 +144,7 @@ public class MainActivity extends AppCompatActivity{
                         int i = spinner.getSelectedItemPosition();
                         setupSpinner(HtmlData);
                         if(spinner.getSelectedItemPosition() == i){
-                            setupViewPager(spinner.getSelectedItemPosition());
+                            setupViewPager(spinner.getSelectedItemPosition() == weekVar? 0 : 1);
                         }
                         item.collapseActionView();
                         return false;
@@ -218,6 +219,7 @@ public class MainActivity extends AppCompatActivity{
         Element today = doc.selectFirst("p.today");
 
         int i = today.text().equals("первая неделя")? 0 : 1;
+        weekVar = i;
         spinner.setSelection(1 - i);
         spinner.setSelection(i);
     }
