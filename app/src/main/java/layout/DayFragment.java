@@ -52,10 +52,10 @@ public class DayFragment extends Fragment {
         dictionaryS.put(0,"8:30 - 10:00");
         dictionaryS.put(1,"10:10 - 11:40");
         dictionaryS.put(2,"11:50 - 13:20");
-        dictionaryS.put(3,"13:30 - 15:00");
-        dictionaryS.put(4,"15:10 - 16:40");
-        dictionaryS.put(5,"16:50 - 18:20");
-        dictionaryS.put(6,"18:30 - 20:00");
+        dictionaryS.put(3,"13:40 - 15:10");
+        dictionaryS.put(4,"15:20 - 16:50");
+        dictionaryS.put(5,"17:00 - 18:30");
+        dictionaryS.put(6,"18:40 - 20:10");
 
 
         if(lectures.size() != 0)
